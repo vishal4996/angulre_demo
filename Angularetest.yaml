@@ -1,0 +1,30 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18  # Specify the Node.js version you need
+    commands:
+      - npm install -g @angular/cli
+  pre_build:
+    commands:
+      - npm install
+      - npm run build
+  build:
+    commands:
+      - echo Pushing build to, $BUCKET_NAME
+      - aws s3 rm s3://dev.invinsense.io --recursive
+      - aws s3 sync "./dist/invinsource" s3://dev.invinsense.io
+  post_build:
+    commands:
+      - echo invalidation $CLOUDFRONT_ID
+      - aws cloudfront create-invalidation --distribution-id EAA1WLBWCHWWJ --paths '/*'
+      - echo $?
+
+artifacts:
+  files:
+    - '*/'
+  base-directory: 'dist/invinsource*'
+
+cache:
+  paths:
+    - node_modules/*/
