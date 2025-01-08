@@ -1,26 +1,30 @@
 version: 0.2
+
 phases:
   install:
     runtime-versions:
       nodejs: 18  # Specify the Node.js version you need
     commands:
       - npm install -g @angular/cli
+
   pre_build:
     commands:
       - npm install
       - npm run build
-      build:
-  commands:
-    - echo Pushing build to, $BUCKET_NAME
-    post_build:
-  commands:
-    - echo invalidation $CLOUDFRONT_ID
-    artifacts:
+
+  build:
+    commands:
+      - echo Pushing build to $BUCKET_NAME
+
+  post_build:
+    commands:
+      - echo invalidation $CLOUDFRONT_ID
+
+artifacts:
   files:
     - '*/'
-  base-directory: 'dist/angulre_demo*'
-  cache:
+  base-directory: 'dist/angular_demo*'
+
+cache:
   paths:
-    - node_modules/*/
-
-
+    - node_modules/**/*
