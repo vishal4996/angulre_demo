@@ -20,10 +20,10 @@ phases:
     commands:
       - echo invalidation $CLOUDFRONT_ID
 
-artifacts:
-  files:
-    - '*/'
-  base-directory: 'dist/angular_demo*'
+# artifacts:
+#   files:
+#     - '*/'
+#   base-directory: 'dist/angular_demo*'
 
 cache:
   paths:
