@@ -1,8 +1,5 @@
 install:
   runtime-versions:
-    nodejs: 18
+    nodejs: 18  # Specify the Node.js version you need
   commands:
-    - echo Installing Angular CLI globally
     - npm install -g @angular/cli
-    - echo Installing project dependencies
-    - npm install
